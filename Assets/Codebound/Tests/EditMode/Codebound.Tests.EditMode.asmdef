@@ -3,6 +3,7 @@
     "rootNamespace": "Codebound.Tests.EditMode",
     "references": [
         "Codebound.Language",
+        "Codebound.Simulation",
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner"
     ],
