@@ -12,9 +12,13 @@ namespace Codebound.Language
         internal ParsedProgram(CompilationUnitSyntax root)
         {
             Root = root;
+            Concepts = ProgramConceptDetector.Detect(root);
         }
 
         internal CompilationUnitSyntax Root { get; }
+
+        /// <summary>The concepts the code uses, so a level can require them.</summary>
+        public ProgramConcept Concepts { get; }
     }
 
     public sealed class CompilationResult
