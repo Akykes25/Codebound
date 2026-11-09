@@ -1,0 +1,44 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2b677f514db11724e98fd7c19894b7c7, type: 3}
+  m_Name: ActionCatalog
+  m_EditorClassIdentifier: Codebound.Levels::Codebound.Levels.ActionCatalog
+  actions:
+  - method: MoveRight
+    usage: MoveRight();
+    description: Mueve al robot una celda a la derecha.
+  - method: MoveLeft
+    usage: MoveLeft();
+    description: Mueve al robot una celda a la izquierda.
+  - method: MoveUp
+    usage: MoveUp();
+    description: Mueve al robot una celda hacia arriba.
+  - method: MoveDown
+    usage: MoveDown();
+    description: Mueve al robot una celda hacia abajo.
+  - method: Interact
+    usage: Interact();
+    description: "Activa la terminal o la puerta de energ\xEDa que est\xE1 al lado
+      del robot."
+  - method: ChargeCore
+    usage: ChargeCore(int carga);
+    description: "Deja el n\xFAcleo que est\xE1 al lado del robot con esa carga."
+  - method: HasKey
+    usage: HasKey()
+    description: Devuelve true si el robot tiene la llave y false si no.
+  - method: CollectKey
+    usage: CollectKey();
+    description: "Junta la llave que est\xE1 al lado del robot."
+  - method: OpenGate
+    usage: OpenGate();
+    description: "Abre la puerta cerrada que est\xE1 al lado del robot. Hace falta
+      la llave."
