@@ -1,0 +1,16 @@
+{
+    "name": "Codebound.Simulation",
+    "rootNamespace": "Codebound.Simulation",
+    "references": [
+        "Codebound.Language"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": true
+}

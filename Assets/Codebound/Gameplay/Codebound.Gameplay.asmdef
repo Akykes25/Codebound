@@ -1,0 +1,17 @@
+{
+    "name": "Codebound.Gameplay",
+    "rootNamespace": "Codebound.Gameplay",
+    "references": [
+        "Codebound.Language",
+        "Codebound.Simulation"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
