@@ -41,13 +41,15 @@ namespace Codebound.Simulation
             IReadOnlyList<CodeDiagnostic> diagnostics,
             IReadOnlyList<RunStep> steps,
             WorldState finalState,
-            bool stepLimitExceeded)
+            bool stepLimitExceeded,
+            ProgramConcept concepts)
         {
             Compiled = compiled;
             Diagnostics = diagnostics;
             Steps = steps;
             FinalState = finalState;
             StepLimitExceeded = stepLimitExceeded;
+            Concepts = concepts;
         }
 
         public bool Compiled { get; }
@@ -55,6 +57,9 @@ namespace Codebound.Simulation
         public IReadOnlyList<RunStep> Steps { get; }
         public WorldState FinalState { get; }
         public bool StepLimitExceeded { get; }
+
+        /// <summary>The concepts the program uses. None when it did not compile.</summary>
+        public ProgramConcept Concepts { get; }
     }
 
     /// <summary>Runs a player's program from the start of a level, without animating anything.</summary>
@@ -66,7 +71,7 @@ namespace Codebound.Simulation
             var compilation = ProgramCompiler.Compile(source, GameApi.Catalog);
             if (!compilation.Succeeded)
             {
-                return new LevelRun(false, compilation.Diagnostics, Array.Empty<RunStep>(), world.State, false);
+                return new LevelRun(false, compilation.Diagnostics, Array.Empty<RunStep>(), world.State, false, ProgramConcept.None);
             }
 
             var execution = ProgramInterpreter.Run(compilation.Program, world);
@@ -81,7 +86,8 @@ namespace Codebound.Simulation
                 compilation.Diagnostics,
                 steps,
                 world.State,
-                execution.Status == ExecutionStatus.StepLimitExceeded);
+                execution.Status == ExecutionStatus.StepLimitExceeded,
+                compilation.Program.Concepts);
         }
     }
 }

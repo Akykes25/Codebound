@@ -1,76 +1,12 @@
 using System.Linq;
 using Codebound.Simulation;
 using NUnit.Framework;
+using static Codebound.Tests.EditMode.TestLevels;
 
 namespace Codebound.Tests.EditMode
 {
     public class LevelRunnerTests
     {
-        private static readonly LevelLayout Level1 = new LevelLayout
-        {
-            Width = 6,
-            Height = 3,
-            Start = new GridPosition(1, 1),
-            Terminal = new GridPosition(4, 1),
-        };
-
-        private static readonly LevelLayout Level2 = new LevelLayout
-        {
-            Width = 6,
-            Height = 4,
-            Start = new GridPosition(1, 2),
-            Walls = new[] { new GridPosition(3, 2) },
-            Terminal = new GridPosition(4, 1),
-        };
-
-        private static readonly LevelLayout Level3 = new LevelLayout
-        {
-            Width = 8,
-            Height = 3,
-            Start = new GridPosition(1, 1),
-            Modules = new[]
-            {
-                new GridPosition(2, 1),
-                new GridPosition(3, 1),
-                new GridPosition(4, 1),
-                new GridPosition(5, 1),
-            },
-            Terminal = new GridPosition(6, 1),
-        };
-
-        private static readonly LevelLayout Level4 = new LevelLayout
-        {
-            Width = 5,
-            Height = 3,
-            Start = new GridPosition(2, 1),
-            Core = new GridPosition(2, 0),
-            PowerDoor = new GridPosition(3, 1),
-            RequiredCharge = 3,
-        };
-
-        private static readonly LevelLayout Level5 = new LevelLayout
-        {
-            Width = 5,
-            Height = 3,
-            Start = new GridPosition(1, 1),
-            Key = new GridPosition(1, 0),
-            Gates = new[] { new GridPosition(2, 1), new GridPosition(3, 1) },
-        };
-
-        private const string Level5Program = @"for (int i = 0; i < 2; i++)
-{
-    if (HasKey())
-    {
-        OpenGate();
-    }
-    else
-    {
-        CollectKey();
-        OpenGate();
-    }
-    MoveRight();
-}";
-
         [Test]
         public void Level1ProgramActivatesTheTerminal()
         {
