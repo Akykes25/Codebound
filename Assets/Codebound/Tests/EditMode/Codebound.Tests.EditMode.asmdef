@@ -4,6 +4,7 @@
     "references": [
         "Codebound.Language",
         "Codebound.Simulation",
+        "Codebound.Levels",
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner"
     ],

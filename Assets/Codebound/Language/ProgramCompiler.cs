@@ -44,7 +44,11 @@ namespace Codebound.Language
         private static readonly CSharpParseOptions ParseOptions =
             new CSharpParseOptions(LanguageVersion.CSharp9, DocumentationMode.None, SourceCodeKind.Regular);
 
-        public static CompilationResult Compile(string source, IEnumerable<MethodSignature> catalog)
+        /// <param name="availableMethods">The catalog methods this level allows, or null for all of them.</param>
+        public static CompilationResult Compile(
+            string source,
+            IEnumerable<MethodSignature> catalog,
+            IEnumerable<string> availableMethods = null)
         {
             var tree = CSharpSyntaxTree.ParseText(source ?? string.Empty, ParseOptions);
             var root = tree.GetCompilationUnitRoot();
@@ -58,7 +62,7 @@ namespace Codebound.Language
                 return new CompilationResult(null, new[] { SyntaxErrorTranslator.Translate(syntaxError, root) });
             }
 
-            var issues = new ProgramValidator(catalog).Validate(root);
+            var issues = new ProgramValidator(catalog, availableMethods).Validate(root);
             return issues.Count > 0
                 ? new CompilationResult(null, issues)
                 : new CompilationResult(new ParsedProgram(root), issues);

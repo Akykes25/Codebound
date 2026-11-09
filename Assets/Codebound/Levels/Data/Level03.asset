@@ -1,0 +1,53 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8fda6a1c21a92b4887a447626e9c2e6, type: 3}
+  m_Name: Level03
+  m_EditorClassIdentifier: Codebound.Levels::Codebound.Levels.LevelDefinition
+  number: 3
+  title: Los pulsos del corredor
+  objective: "Encend\xE9 los cuatro m\xF3dulos del corredor y activ\xE1 la terminal
+    del final."
+  concept: Ciclo for contado
+  starterCode: 
+  isBoss: 0
+  size: {x: 8, y: 3}
+  start: {x: 1, y: 1}
+  walls: []
+  modules:
+  - {x: 2, y: 1}
+  - {x: 3, y: 1}
+  - {x: 4, y: 1}
+  - {x: 5, y: 1}
+  gates: []
+  hasTerminal: 1
+  terminal: {x: 6, y: 1}
+  hasCore: 0
+  core: {x: 0, y: 0}
+  hasPowerDoor: 0
+  powerDoor: {x: 0, y: 0}
+  requiredCharge: 0
+  hasKey: 0
+  key: {x: 0, y: 0}
+  requireTerminalActive: 1
+  requireAllModules: 1
+  requireCoreCharge: 0
+  requirePowerDoorOpen: 0
+  requireAllGatesOpen: 0
+  requireFinalPosition: 0
+  finalPosition: {x: 0, y: 0}
+  requiredConcepts: 1
+  availableActions:
+  - MoveRight
+  - MoveLeft
+  - MoveUp
+  - MoveDown
+  - Interact
