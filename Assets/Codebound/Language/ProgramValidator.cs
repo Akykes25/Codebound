@@ -19,9 +19,13 @@ namespace Codebound.Language
         private readonly List<CodeDiagnostic> issues = new List<CodeDiagnostic>();
         private readonly List<HashSet<string>> scopes = new List<HashSet<string>>();
 
-        public ProgramValidator(IEnumerable<MethodSignature> catalog)
+        private readonly HashSet<string> available;
+
+        /// <param name="availableMethods">The catalog methods this level allows, or null for all of them.</param>
+        public ProgramValidator(IEnumerable<MethodSignature> catalog, IEnumerable<string> availableMethods = null)
         {
             methods = catalog.ToDictionary(method => method.Name);
+            available = availableMethods == null ? null : new HashSet<string>(availableMethods);
         }
 
         public IReadOnlyList<CodeDiagnostic> Validate(CompilationUnitSyntax root)
@@ -277,6 +281,12 @@ namespace Codebound.Language
             {
                 Report(call, $"El método {name} no existe en este juego.");
                 return null;
+            }
+
+            if (available != null && !available.Contains(name))
+            {
+                Report(call, $"El método {name} todavía no está disponible en este nivel.");
+                return method.Returns;
             }
 
             var arguments = call.ArgumentList.Arguments;

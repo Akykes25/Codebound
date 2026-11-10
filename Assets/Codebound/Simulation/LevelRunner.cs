@@ -65,10 +65,11 @@ namespace Codebound.Simulation
     /// <summary>Runs a player's program from the start of a level, without animating anything.</summary>
     public static class LevelRunner
     {
-        public static LevelRun Run(string source, LevelLayout layout)
+        /// <param name="availableMethods">The game methods this level allows, or null for all of them.</param>
+        public static LevelRun Run(string source, LevelLayout layout, IEnumerable<string> availableMethods = null)
         {
             var world = new GridWorld(layout);
-            var compilation = ProgramCompiler.Compile(source, GameApi.Catalog);
+            var compilation = ProgramCompiler.Compile(source, GameApi.Catalog, availableMethods);
             if (!compilation.Succeeded)
             {
                 return new LevelRun(false, compilation.Diagnostics, Array.Empty<RunStep>(), world.State, false, ProgramConcept.None);

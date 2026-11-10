@@ -1,0 +1,17 @@
+{
+    "name": "Codebound.Levels",
+    "rootNamespace": "Codebound.Levels",
+    "references": [
+        "Codebound.Language",
+        "Codebound.Simulation"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
