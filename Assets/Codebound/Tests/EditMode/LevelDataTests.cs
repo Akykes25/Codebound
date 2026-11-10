@@ -13,7 +13,7 @@ namespace Codebound.Tests.EditMode
     {
         private const string DataFolder = "Assets/Codebound/Levels/Data";
 
-        private static readonly Dictionary<int, string> GddPrograms = new Dictionary<int, string>
+        internal static readonly Dictionary<int, string> GddPrograms = new Dictionary<int, string>
         {
             { 1, Level1Program },
             { 2, Level2Program },
@@ -22,7 +22,7 @@ namespace Codebound.Tests.EditMode
             { 5, Level5Program },
         };
 
-        private static List<LevelDefinition> LoadLevels()
+        internal static List<LevelDefinition> LoadLevels()
         {
             return AssetDatabase.FindAssets("t:" + nameof(LevelDefinition), new[] { DataFolder })
                 .Select(guid => AssetDatabase.LoadAssetAtPath<LevelDefinition>(AssetDatabase.GUIDToAssetPath(guid)))
@@ -30,7 +30,7 @@ namespace Codebound.Tests.EditMode
                 .ToList();
         }
 
-        private static LevelDefinition LoadLevel(int number)
+        internal static LevelDefinition LoadLevel(int number)
         {
             return LoadLevels().Single(level => level.Number == number);
         }

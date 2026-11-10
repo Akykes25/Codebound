@@ -46,3 +46,19 @@ MonoBehaviour:
   - MoveUp
   - MoveDown
   - Interact
+  hints:
+  - El robot tiene que quedar al lado de la terminal antes de activarla.
+  - "Cada MoveRight(); mueve al robot una casilla a la derecha. Cont\xE1 cu\xE1ntas
+    casillas lo separan de la terminal."
+  - "Escrib\xED MoveRight(); dos veces y despu\xE9s Interact();. Cada instrucci\xF3n
+    termina con punto y coma."
+  solutionCode: 'MoveRight();
+
+    MoveRight();
+
+    Interact();'
+  solutionExplanation: "MoveRight(); mueve al robot una casilla a la derecha. Con
+    dos llamadas queda al lado de la terminal.\n\nInteract(); activa lo que est\xE1
+    junto al robot, por eso va al final: si interactuara antes de moverse, no tendr\xEDa
+    nada al lado y la terminal seguir\xEDa apagada.\n\nLas instrucciones se ejecutan
+    en orden, de arriba hacia abajo, y cada una termina con punto y coma."

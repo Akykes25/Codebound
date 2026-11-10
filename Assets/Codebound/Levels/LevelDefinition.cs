@@ -52,6 +52,12 @@ namespace Codebound.Levels
         [Tooltip("Los métodos de GameApi que el jugador puede usar en este nivel.")]
         [SerializeField] private List<string> availableActions = new List<string>();
 
+        [Header("Ayuda")]
+        [Tooltip("Pistas en el orden en que se muestran. No escriben el programa completo.")]
+        [SerializeField, TextArea(2, 4)] private List<string> hints = new List<string>();
+        [SerializeField, TextArea(4, 12)] private string solutionCode = string.Empty;
+        [SerializeField, TextArea(4, 12)] private string solutionExplanation = string.Empty;
+
         public int Number => number;
         public string Title => title;
         public string Objective => objective;
@@ -59,6 +65,15 @@ namespace Codebound.Levels
         public string StarterCode => starterCode;
         public bool IsBoss => isBoss;
         public IReadOnlyList<string> AvailableActions => availableActions;
+        public IReadOnlyList<string> Hints => hints;
+        public string SolutionCode => solutionCode;
+        public string SolutionExplanation => solutionExplanation;
+
+        /// <summary>A fresh sequence that reveals this level's hints one step at a time.</summary>
+        public HintSequence CreateHintSequence()
+        {
+            return new HintSequence(hints);
+        }
 
         public LevelLayout CreateLayout()
         {

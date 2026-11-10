@@ -53,3 +53,21 @@ MonoBehaviour:
   - HasKey
   - CollectKey
   - OpenGate
+  hints:
+  - 'Las dos puertas se resuelven con los mismos pasos: un for de dos vueltas repite
+    ese trabajo, una vez por puerta.'
+  - "En cada vuelta pregunt\xE1 si el robot ya tiene la llave con HasKey(). Un if
+    con else te deja hacer una cosa u otra seg\xFAn la respuesta."
+  - "Si todav\xEDa no tiene la llave, primero tiene que recogerla con CollectKey().
+    En los dos casos, despu\xE9s de abrir la puerta el robot avanza."
+  solutionCode: "for (int i = 0; i < 2; i++)\n{\n    if (HasKey())\n    {\n       
+    OpenGate();\n    }\n    else\n    {\n        CollectKey();\n        OpenGate();\n   
+    }\n    MoveRight();\n}"
+  solutionExplanation: "HasKey() comprueba si el robot tiene la llave: devuelve true
+    si la tiene y false si no.\n\nEn la primera vuelta todav\xEDa no la tiene, as\xED
+    que se ejecuta la rama else: CollectKey(); recoge la llave y OpenGate(); abre
+    la primera puerta. Despu\xE9s MoveRight(); lo lleva hasta donde estaba esa puerta.\n\nEn
+    la segunda vuelta el robot conserva la llave, HasKey() devuelve true y se ejecuta
+    la rama if: abre la segunda puerta directamente.\n\nPor eso lo que pas\xF3 en
+    la primera puerta cambia lo que pasa en la segunda: el mismo c\xF3digo toma un
+    camino distinto seg\xFAn el estado del robot."

@@ -51,3 +51,18 @@ MonoBehaviour:
   - MoveUp
   - MoveDown
   - Interact
+  hints:
+  - "Prob\xE1 con esta plantilla: for (int i = 0; i < ...; i++) { ... }. Complet\xE1
+    cu\xE1ntas veces se repite y qu\xE9 movimiento va entre las llaves."
+  - "Hay cuatro m\xF3dulos seguidos y se activan cuando el robot pasa por encima.
+    El mismo movimiento se repite una vez por m\xF3dulo."
+  - "Cuando termina el ciclo, el robot queda al lado de la terminal. Falta una instrucci\xF3n
+    despu\xE9s de la llave de cierre."
+  solutionCode: "for (int i = 0; i < 4; i++)\n{\n    MoveRight();\n}\nInteract();"
+  solutionExplanation: "El ciclo for repite su cuerpo una cantidad fija de veces.\n\nint
+    i = 0 crea el contador y lo empieza en cero. La condici\xF3n i < 4 se revisa
+    antes de cada vuelta: mientras sea verdadera, se ejecuta el cuerpo. i++ suma
+    uno al contador al final de cada vuelta.\n\nEl cuerpo, MoveRight();, se ejecuta
+    cuatro veces (con i en 0, 1, 2 y 3) y el robot pasa por los cuatro m\xF3dulos.
+    Cuando i llega a 4 la condici\xF3n es falsa, el ciclo termina e Interact(); activa
+    la terminal."
