@@ -71,3 +71,4 @@ MonoBehaviour:
     la rama if: abre la segunda puerta directamente.\n\nPor eso lo que pas\xF3 en
     la primera puerta cambia lo que pasa en la segunda: el mismo c\xF3digo toma un
     camino distinto seg\xFAn el estado del robot."
+  advice: "Pens\xE1 qu\xE9 pasa en cada vuelta del for: a veces el robot ya tiene la llave y a veces no. Revis\xE1 que las dos ramas del if/else terminen con la puerta abierta y que el robot avance despu\xE9s, para llegar a la puerta siguiente."

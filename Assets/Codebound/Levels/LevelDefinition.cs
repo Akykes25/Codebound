@@ -57,6 +57,8 @@ namespace Codebound.Levels
         [SerializeField, TextArea(2, 4)] private List<string> hints = new List<string>();
         [SerializeField, TextArea(4, 12)] private string solutionCode = string.Empty;
         [SerializeField, TextArea(4, 12)] private string solutionExplanation = string.Empty;
+        [Tooltip("Consejo único del nivel: se muestra cuando el código corre sin errores pero no llega al objetivo.")]
+        [SerializeField, TextArea(2, 6)] private string advice = string.Empty;
 
         public int Number => number;
         public string Title => title;
@@ -68,6 +70,7 @@ namespace Codebound.Levels
         public IReadOnlyList<string> Hints => hints;
         public string SolutionCode => solutionCode;
         public string SolutionExplanation => solutionExplanation;
+        public string Advice => advice;
 
         /// <summary>A fresh sequence that reveals this level's hints one step at a time.</summary>
         public HintSequence CreateHintSequence()
@@ -125,6 +128,12 @@ namespace Codebound.Levels
         public LevelVerdict Evaluate(LevelRun run)
         {
             return LevelValidator.Evaluate(run, CreateLayout(), CreateGoal());
+        }
+
+        /// <summary>This level's advice when the code ran but did not reach the goal; otherwise null.</summary>
+        public string Advise(string source, LevelRun run, LevelVerdict verdict)
+        {
+            return LevelAdvisor.Advise(source, run, verdict, solutionCode, advice);
         }
 
         private static GridPosition ToCell(Vector2Int cell)

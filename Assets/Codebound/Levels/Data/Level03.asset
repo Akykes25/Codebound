@@ -66,3 +66,4 @@ MonoBehaviour:
     cuatro veces (con i en 0, 1, 2 y 3) y el robot pasa por los cuatro m\xF3dulos.
     Cuando i llega a 4 la condici\xF3n es falsa, el ciclo termina e Interact(); activa
     la terminal."
+  advice: "Revis\xE1 cu\xE1ntas veces se repite el for y qu\xE9 movimiento hay entre sus llaves: cada vuelta tiene que llevar al robot sobre el m\xF3dulo siguiente, en direcci\xF3n a la terminal. Lo que escrib\xEDs despu\xE9s del ciclo se ejecuta una sola vez."

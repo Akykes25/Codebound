@@ -66,3 +66,4 @@ MonoBehaviour:
     del n\xFAcleo muestra la carga que recibi\xF3.\n\nCon el n\xFAcleo en 3, la carga
     que pide la puerta, Interact(); la reactiva. Si pulses guardara otro n\xFAmero,
     el n\xFAcleo quedar\xEDa con otra carga y la puerta no se abrir\xEDa."
+  advice: "Compar\xE1 en el registro la carga que qued\xF3 en el n\xFAcleo con la que pide la puerta: el valor que guard\xE1s en la variable es el que recibe el m\xE9todo que carga el n\xFAcleo. La puerta se abre reci\xE9n cuando el n\xFAcleo tiene la carga justa y el robot est\xE1 a su lado."

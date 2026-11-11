@@ -62,3 +62,4 @@ MonoBehaviour:
     junto al robot, por eso va al final: si interactuara antes de moverse, no tendr\xEDa
     nada al lado y la terminal seguir\xEDa apagada.\n\nLas instrucciones se ejecutan
     en orden, de arriba hacia abajo, y cada una termina con punto y coma."
+  advice: "Antes de ejecutar, cont\xE1 cu\xE1ntas casillas hay entre el robot y la terminal y fijate hacia qu\xE9 lado est\xE1. El robot tiene que terminar justo al lado de la terminal y reci\xE9n ah\xED interactuar."
