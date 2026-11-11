@@ -9,7 +9,7 @@ namespace Codebound.Gameplay
     /// <summary>
     /// Plays one level: starts its session (and timer) when the screen opens, runs the player's code,
     /// saves the progress, and at the end shows the final time and the time of each level.
-    /// Connect the editor's "Ejecutar" button to <see cref="RunCode"/>.
+    /// Connect the editor's "Ejecutar" button to <see cref="RunCode"/> and "Reiniciar" to <see cref="Retry"/>.
     /// </summary>
     public sealed class LevelScreen : MonoBehaviour
     {
@@ -49,6 +49,23 @@ namespace Codebound.Gameplay
             if (catalogPanel != null && actionCatalog != null)
             {
                 catalogPanel.Show(actionCatalog.For(level));
+            }
+        }
+
+        /// <summary>The "Reiniciar" button: the robot goes back to the start and the timer to zero.</summary>
+        public void Retry()
+        {
+            StopAllCoroutines();
+            Session.Retry();
+
+            if (player != null)
+            {
+                player.PlaceAt(level.CreateLayout().Start);
+            }
+
+            if (resultPanel != null)
+            {
+                resultPanel.Hide();
             }
         }
 

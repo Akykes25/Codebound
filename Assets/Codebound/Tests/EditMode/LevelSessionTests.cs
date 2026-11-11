@@ -178,6 +178,77 @@ namespace Codebound.Tests.EditMode
         }
 
         [Test]
+        public void RetryingPutsTheTimerBackToZero()
+        {
+            var session = Open();
+            now += 40;
+            session.Submit(Wrong);
+
+            session.Retry();
+            now += 6;
+
+            Assert.That(session.Timer.IsRunning, Is.True);
+            Assert.That(session.ElapsedText, Is.EqualTo("00:06"));
+        }
+
+        [Test]
+        public void TheFinalTimeOnlyCountsSinceTheLastRetry()
+        {
+            var session = Open();
+            now += 40;
+            session.Retry();
+            now += 25;
+
+            var attempt = session.Submit(Solution);
+
+            Assert.That(attempt.Result.TimeSeconds, Is.EqualTo(25));
+            Assert.That(progress.Find(3).BestTimeSeconds, Is.EqualTo(25));
+        }
+
+        [Test]
+        public void RetryingAfterCompletingAllowsABetterTime()
+        {
+            var session = Open();
+            now += 50;
+            session.Submit(Solution);
+
+            session.Retry();
+            now += 20;
+            var attempt = session.Submit(Solution);
+
+            Assert.That(session.IsCompleted, Is.True);
+            Assert.That(attempt.Result.TimeText, Is.EqualTo("00:20"));
+            Assert.That(attempt.Result.IsNewBest, Is.True);
+            Assert.That(progress.Find(3).BestTimeSeconds, Is.EqualTo(20));
+        }
+
+        [Test]
+        public void RetryingKeepsTheAssistedMarkBecauseTheSolutionWasAlreadySeen()
+        {
+            var session = Open();
+            session.Help.OpenSolution();
+
+            session.Retry();
+            now += 10;
+            var attempt = session.Submit(Solution);
+
+            Assert.That(attempt.Result.Assisted, Is.True);
+        }
+
+        [Test]
+        public void RetryingALevelWithoutTimerOnlyAllowsCompletingItAgain()
+        {
+            var session = Open(timed: false, number: 1);
+            session.Submit(Solution);
+
+            session.Retry();
+
+            Assert.That(session.Timer, Is.Null);
+            Assert.That(session.IsCompleted, Is.False);
+            Assert.That(session.Submit(Solution).Result, Is.Not.Null);
+        }
+
+        [Test]
         public void TheResultPanelShowsTheTimeWithTheAssistedMarkNextToIt()
         {
             var session = Open();

@@ -114,6 +114,16 @@ namespace Codebound.Gameplay
         /// <summary>The time so far as mm:ss, or null when the level has no timer.</summary>
         public string ElapsedText => Timer == null ? null : LevelTimer.Format(Timer.Elapsed);
 
+        /// <summary>
+        /// The player restarts the level: the timer goes back to zero and the level can be completed again,
+        /// for example to beat the best time. The "Asistido" mark stays: the solution was already seen.
+        /// </summary>
+        public void Retry()
+        {
+            IsCompleted = false;
+            Timer?.Restart();
+        }
+
         public LevelAttempt Submit(string source)
         {
             var run = Level.Run(source);
