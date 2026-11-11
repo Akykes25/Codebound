@@ -3,7 +3,10 @@
     "rootNamespace": "Codebound.Gameplay",
     "references": [
         "Codebound.Language",
-        "Codebound.Simulation"
+        "Codebound.Simulation",
+        "Codebound.Levels",
+        "Codebound.Progress",
+        "UnityEngine.UI"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

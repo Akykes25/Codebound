@@ -11,7 +11,7 @@ namespace Codebound.Levels
     /// The grid uses the same coordinates as the simulation: x grows right and y grows down.
     /// </summary>
     [CreateAssetMenu(fileName = "Level", menuName = "Codebound/Nivel")]
-    public sealed class LevelDefinition : ScriptableObject
+    public sealed class LevelDefinition : ScriptableObject, IPlayableLevel
     {
         [Header("Presentación")]
         [SerializeField, Min(1)] private int number = 1;
@@ -20,6 +20,8 @@ namespace Codebound.Levels
         [SerializeField] private string concept = string.Empty;
         [SerializeField, TextArea(4, 12)] private string starterCode = string.Empty;
         [SerializeField] private bool isBoss;
+        [Tooltip("Muestra el cronómetro durante el nivel (niveles 3 en adelante).")]
+        [SerializeField] private bool timed;
 
         [Header("Grilla")]
         [SerializeField] private Vector2Int size = new Vector2Int(6, 3);
@@ -66,6 +68,9 @@ namespace Codebound.Levels
         public string Concept => concept;
         public string StarterCode => starterCode;
         public bool IsBoss => isBoss;
+
+        /// <summary>Whether this level shows a <see cref="LevelTimer"/> while it is played.</summary>
+        public bool IsTimed => timed;
         public IReadOnlyList<string> AvailableActions => availableActions;
         public IReadOnlyList<string> Hints => hints;
         public string SolutionCode => solutionCode;
