@@ -5,8 +5,7 @@
         "Codebound.Language",
         "Codebound.Simulation",
         "Codebound.Levels",
-        "Codebound.Progress",
-        "UnityEngine.UI"
+        "Codebound.Progress"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
