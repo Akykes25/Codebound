@@ -15,6 +15,17 @@ namespace Codebound.Levels
         [SerializeField] private string usage = string.Empty;
         [SerializeField, TextArea(2, 4)] private string description = string.Empty;
 
+        public ActionEntry()
+        {
+        }
+
+        public ActionEntry(string method, string usage, string description)
+        {
+            this.method = method;
+            this.usage = usage;
+            this.description = description;
+        }
+
         public string Method => method;
         public string Usage => usage;
         public string Description => description;
