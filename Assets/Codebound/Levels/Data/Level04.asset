@@ -19,6 +19,7 @@ MonoBehaviour:
   concept: "Variables int y par\xE1metros"
   starterCode: 
   isBoss: 0
+  timed: 1
   size: {x: 5, y: 3}
   start: {x: 2, y: 1}
   walls: []

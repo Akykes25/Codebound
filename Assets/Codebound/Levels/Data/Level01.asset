@@ -18,6 +18,7 @@ MonoBehaviour:
   concept: "Llamadas a m\xE9todos, punto y coma y orden"
   starterCode: 
   isBoss: 0
+  timed: 0
   size: {x: 6, y: 3}
   start: {x: 1, y: 1}
   walls: []
