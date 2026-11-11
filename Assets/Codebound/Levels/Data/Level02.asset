@@ -54,3 +54,24 @@ MonoBehaviour:
   - MoveUp
   - MoveDown
   - Interact
+  hints:
+  - "Ejecut\xE1 el c\xF3digo y mir\xE1 el registro: busc\xE1 la l\xEDnea en la que
+    el robot choca con el obst\xE1culo."
+  - "El obst\xE1culo est\xE1 en la fila del robot. Antes de llegar a \xE9l, el robot
+    tiene que subir una fila."
+  - "Despu\xE9s del primer MoveRight(); agreg\xE1 un MoveUp(); y segu\xED hacia la
+    derecha hasta quedar al lado de la terminal."
+  solutionCode: 'MoveRight();
+
+    MoveUp();
+
+    MoveRight();
+
+    Interact();'
+  solutionExplanation: "El primer MoveRight(); lleva al robot una casilla a la derecha.
+    MoveUp(); lo sube a la fila de la terminal y as\xED esquiva el obst\xE1culo.
+    El segundo MoveRight(); lo deja al lado de la terminal e Interact(); la activa.\n\nUn
+    programa puede ser sint\xE1cticamente v\xE1lido y aun as\xED no producir la ruta
+    buscada: si el robot sigue derecho, el c\xF3digo compila, pero choca con el obst\xE1culo.
+    El registro muestra la \xFAltima acci\xF3n y la posici\xF3n del robot para encontrar
+    la l\xEDnea que lo desvi\xF3."
