@@ -75,6 +75,15 @@ namespace Codebound.Levels
             return new HintSequence(hints);
         }
 
+        /// <summary>
+        /// The help for a new attempt at this level. Show the solution through it, not through
+        /// <see cref="SolutionCode"/>, so opening it marks the attempt as assisted.
+        /// </summary>
+        public LevelHelp CreateHelp()
+        {
+            return new LevelHelp(hints, solutionCode, solutionExplanation);
+        }
+
         public LevelLayout CreateLayout()
         {
             return new LevelLayout
