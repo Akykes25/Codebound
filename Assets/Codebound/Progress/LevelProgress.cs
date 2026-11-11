@@ -37,6 +37,12 @@ namespace Codebound.Progress
             lastCode = code ?? string.Empty;
         }
 
+        internal void RecordCompletion(string code)
+        {
+            completed = true;
+            lastCode = code ?? string.Empty;
+        }
+
         internal void RecordCompletion(float timeSeconds, bool assisted, string code)
         {
             completed = true;

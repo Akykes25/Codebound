@@ -11,7 +11,7 @@ namespace Codebound.Levels
     /// The grid uses the same coordinates as the simulation: x grows right and y grows down.
     /// </summary>
     [CreateAssetMenu(fileName = "Level", menuName = "Codebound/Nivel")]
-    public sealed class LevelDefinition : ScriptableObject
+    public sealed class LevelDefinition : ScriptableObject, IPlayableLevel
     {
         [Header("Presentación")]
         [SerializeField, Min(1)] private int number = 1;

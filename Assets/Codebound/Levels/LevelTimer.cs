@@ -3,17 +3,17 @@ using System;
 namespace Codebound.Levels
 {
     /// <summary>
-    /// Measures how long the player takes in a level. It can be paused and resumed; once stopped it keeps
-    /// its final time until it is restarted. What pauses or restarts it is decided by the game, not here.
+    /// Measures how long the player takes to complete a level: it starts when the level starts and stops,
+    /// keeping its final time, when the level is completed. The game has no pause, so it never stops in between.
     /// The time never grades the player: it is shown next to the result, not instead of it.
     /// </summary>
     public sealed class LevelTimer
     {
         private readonly Func<double> now;
-        private double accumulated;
-        private double runningSince;
+        private double startedAt;
+        private double finalTime;
 
-        /// <param name="now">The current time in seconds, for example () => Time.unscaledTimeAsDouble.</param>
+        /// <param name="now">The current time in seconds, for example () => Time.realtimeSinceStartupAsDouble.</param>
         public LevelTimer(Func<double> now)
         {
             this.now = now ?? throw new ArgumentNullException(nameof(now));
@@ -24,50 +24,40 @@ namespace Codebound.Levels
         /// <summary>True after <see cref="Stop"/>: the time is final until <see cref="Restart"/>.</summary>
         public bool IsStopped { get; private set; }
 
-        /// <summary>Seconds counted so far, without the time spent paused.</summary>
-        public double Elapsed => accumulated + (IsRunning ? now() - runningSince : 0);
+        /// <summary>Seconds since the timer started, or the final time once it stopped.</summary>
+        public double Elapsed => IsRunning ? now() - startedAt : finalTime;
 
-        /// <summary>Starts counting. It does nothing if the timer is already running or stopped.</summary>
+        /// <summary>Starts counting from zero. It does nothing if the timer is already running or stopped.</summary>
         public void Start()
-        {
-            Resume();
-        }
-
-        public void Pause()
-        {
-            if (!IsRunning)
-            {
-                return;
-            }
-
-            accumulated = Elapsed;
-            IsRunning = false;
-        }
-
-        public void Resume()
         {
             if (IsRunning || IsStopped)
             {
                 return;
             }
 
-            runningSince = now();
+            startedAt = now();
             IsRunning = true;
         }
 
-        /// <summary>Freezes the final time, for example when the level is completed.</summary>
+        /// <summary>Freezes the final time, when the level is completed.</summary>
         public void Stop()
         {
-            Pause();
+            if (!IsRunning)
+            {
+                return;
+            }
+
+            finalTime = now() - startedAt;
+            IsRunning = false;
             IsStopped = true;
         }
 
-        /// <summary>Goes back to zero and starts counting again.</summary>
+        /// <summary>Goes back to zero and starts counting again, for a new attempt at the level.</summary>
         public void Restart()
         {
-            accumulated = 0;
             IsRunning = false;
             IsStopped = false;
+            finalTime = 0;
             Start();
         }
 

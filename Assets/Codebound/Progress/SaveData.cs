@@ -42,6 +42,12 @@ namespace Codebound.Progress
             GetOrAdd(levelNumber).RecordCompletion(timeSeconds, assisted, code);
         }
 
+        /// <summary>Marks a level without a timer as completed; its best time stays empty.</summary>
+        public void RecordCompletion(int levelNumber, string code)
+        {
+            GetOrAdd(levelNumber).RecordCompletion(code);
+        }
+
         private LevelProgress GetOrAdd(int levelNumber)
         {
             var level = Find(levelNumber);

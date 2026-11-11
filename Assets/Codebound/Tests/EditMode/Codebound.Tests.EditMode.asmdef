@@ -6,6 +6,7 @@
         "Codebound.Simulation",
         "Codebound.Levels",
         "Codebound.Progress",
+        "Codebound.Gameplay",
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner"
     ],

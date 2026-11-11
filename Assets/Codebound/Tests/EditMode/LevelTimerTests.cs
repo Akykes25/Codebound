@@ -39,26 +39,7 @@ namespace Codebound.Tests.EditMode
         }
 
         [Test]
-        public void APausedTimerDoesNotCountUntilItResumes()
-        {
-            var timer = CreateTimer();
-
-            timer.Start();
-            now += 5;
-            timer.Pause();
-            now += 60;
-
-            Assert.That(timer.IsRunning, Is.False);
-            Assert.That(timer.Elapsed, Is.EqualTo(5));
-
-            timer.Resume();
-            now += 3;
-
-            Assert.That(timer.Elapsed, Is.EqualTo(8));
-        }
-
-        [Test]
-        public void AStoppedTimerKeepsItsFinalTimeAndCannotResume()
+        public void AStoppedTimerKeepsItsFinalTimeAndCannotStartAgain()
         {
             var timer = CreateTimer();
 
@@ -66,7 +47,6 @@ namespace Codebound.Tests.EditMode
             now += 42;
             timer.Stop();
             now += 30;
-            timer.Resume();
             timer.Start();
             now += 30;
 
@@ -92,7 +72,7 @@ namespace Codebound.Tests.EditMode
         }
 
         [Test]
-        public void StartingOrPausingTwiceChangesNothing()
+        public void StartingTwiceDoesNotResetTheTime()
         {
             var timer = CreateTimer();
 
@@ -100,9 +80,6 @@ namespace Codebound.Tests.EditMode
             now += 5;
             timer.Start();
             now += 5;
-            timer.Pause();
-            now += 5;
-            timer.Pause();
 
             Assert.That(timer.Elapsed, Is.EqualTo(10));
         }
