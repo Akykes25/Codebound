@@ -141,6 +141,12 @@ namespace Codebound.Levels
             return LevelAdvisor.Advise(source, run, verdict, solutionCode, advice);
         }
 
+        /// <summary>Why this level's solution works, once the player completed it; otherwise null.</summary>
+        public LevelDebrief Debrief(string source, LevelVerdict verdict)
+        {
+            return LevelDebrief.For(source, verdict, solutionCode, solutionExplanation);
+        }
+
         private static GridPosition ToCell(Vector2Int cell)
         {
             return new GridPosition(cell.x, cell.y);
