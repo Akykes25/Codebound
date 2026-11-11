@@ -75,3 +75,4 @@ MonoBehaviour:
     buscada: si el robot sigue derecho, el c\xF3digo compila, pero choca con el obst\xE1culo.
     El registro muestra la \xFAltima acci\xF3n y la posici\xF3n del robot para encontrar
     la l\xEDnea que lo desvi\xF3."
+  advice: "Segu\xED el registro paso a paso: el robot no puede atravesar el obst\xE1culo. Planific\xE1 el camino casilla por casilla para rodearlo y terminar al lado de la terminal antes de interactuar."
