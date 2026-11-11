@@ -35,7 +35,7 @@ namespace Codebound.Tests.EditMode
             return LoadLevels().Single(level => level.Number == number);
         }
 
-        private static ActionCatalog LoadCatalog()
+        internal static ActionCatalog LoadCatalog()
         {
             return AssetDatabase.LoadAssetAtPath<ActionCatalog>(DataFolder + "/ActionCatalog.asset");
         }

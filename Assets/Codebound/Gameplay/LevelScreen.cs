@@ -20,6 +20,8 @@ namespace Codebound.Gameplay
         [SerializeField] private LevelTimerLabel timerLabel;
         [SerializeField] private LevelResultPanel resultPanel;
         [SerializeField] private LevelTimesList timesList;
+        [SerializeField] private ActionCatalog actionCatalog;
+        [SerializeField] private MethodCatalogPanel catalogPanel;
 
         private JsonProgressStore store;
         private SaveData progress;
@@ -43,6 +45,11 @@ namespace Codebound.Gameplay
             }
 
             ShowTimes();
+
+            if (catalogPanel != null && actionCatalog != null)
+            {
+                catalogPanel.Show(actionCatalog.For(level));
+            }
         }
 
         public void RunCode(string source)
