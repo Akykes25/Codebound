@@ -85,9 +85,53 @@ namespace Codebound.Tests.EditMode
         {
             Assert.That(LoadLevel(3).CreateGoal().RequiredConcepts, Is.EqualTo(Level3Goal.RequiredConcepts));
             Assert.That(LoadLevel(4).CreateGoal().CoreCharge, Is.EqualTo(Level4Goal.CoreCharge));
-            Assert.That(LoadLevel(5).CreateGoal().FinalPosition, Is.EqualTo(Level5Goal.FinalPosition));
             Assert.That(LoadLevel(5).CreateLayout().Gates, Is.EqualTo(Level5.Gates));
             Assert.That(LoadLevel(2).CreateLayout().Walls, Is.EqualTo(Level2.Walls));
+        }
+
+        [Test]
+        public void TheFinalLevelAssetIsTheFinalRoomOfTheTests()
+        {
+            var layout = LoadLevel(5).CreateLayout();
+            var goal = LoadLevel(5).CreateGoal();
+
+            Assert.That(new[] { layout.Width, layout.Height }, Is.EqualTo(new[] { Level5.Width, Level5.Height }));
+            Assert.That(layout.Start, Is.EqualTo(Level5.Start));
+            Assert.That(layout.Key, Is.EqualTo(Level5.Key));
+            Assert.That(layout.Modules, Is.EqualTo(Level5.Modules));
+            Assert.That(layout.Core, Is.EqualTo(Level5.Core));
+            Assert.That(layout.PowerDoor, Is.EqualTo(Level5.PowerDoor));
+            Assert.That(layout.RequiredCharge, Is.EqualTo(Level5.RequiredCharge));
+            Assert.That(layout.Terminal, Is.EqualTo(Level5.Terminal));
+            Assert.That(layout.Walls, Is.Empty);
+
+            Assert.That(goal.TerminalActive, Is.EqualTo(Level5Goal.TerminalActive));
+            Assert.That(goal.AllModulesActive, Is.EqualTo(Level5Goal.AllModulesActive));
+            Assert.That(goal.CoreCharge, Is.EqualTo(Level5Goal.CoreCharge));
+            Assert.That(goal.PowerDoorOpen, Is.EqualTo(Level5Goal.PowerDoorOpen));
+            Assert.That(goal.AllGatesOpen, Is.EqualTo(Level5Goal.AllGatesOpen));
+            Assert.That(goal.FinalPosition, Is.EqualTo(Level5Goal.FinalPosition));
+            Assert.That(goal.RequiredConcepts, Is.EqualTo(Level5Goal.RequiredConcepts));
+        }
+
+        [Test]
+        public void TheFinalLevelIsTheLargestRoomAndAsksForEveryConcept()
+        {
+            var levels = LoadLevels();
+            var final = levels.Last();
+
+            Assert.That(final.IsBoss, Is.True);
+            Assert.That(final.IsTimed, Is.True);
+            var finalLayout = final.CreateLayout();
+            foreach (var level in levels.Take(levels.Count - 1))
+            {
+                var layout = level.CreateLayout();
+                Assert.That(finalLayout.Width * finalLayout.Height, Is.GreaterThan(layout.Width * layout.Height), $"Nivel {level.Number}");
+                Assert.That(final.CreateGoal().RequiredConcepts.HasFlag(level.CreateGoal().RequiredConcepts), Is.True, $"Nivel {level.Number}");
+            }
+
+            Assert.That(final.CreateGoal().RequiredConcepts,
+                Is.EqualTo(ProgramConcept.ForLoop | ProgramConcept.IfElse | ProgramConcept.IntVariableArgument));
         }
 
         [Test]

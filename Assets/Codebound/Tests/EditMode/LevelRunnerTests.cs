@@ -45,13 +45,28 @@ namespace Codebound.Tests.EditMode
         }
 
         [Test]
-        public void Level5ProgramOpensBothGatesAndReachesTheLastOne()
+        public void Level5ProgramSolvesEveryPartOfTheFinalRoom()
         {
             var run = LevelRunner.Run(Level5Program, Level5);
 
+            Assert.That(run.Steps.Where(step => !step.Succeeded), Is.Empty);
             Assert.That(run.FinalState.HasKey, Is.True);
             Assert.That(run.FinalState.OpenGates, Is.EquivalentTo(Level5.Gates));
-            Assert.That(run.FinalState.Position, Is.EqualTo(new GridPosition(3, 1)));
+            Assert.That(run.FinalState.ActiveModules, Is.EquivalentTo(Level5.Modules));
+            Assert.That(run.FinalState.CoreCharge, Is.EqualTo(4));
+            Assert.That(run.FinalState.PowerDoorOpen, Is.True);
+            Assert.That(run.FinalState.TerminalActive, Is.True);
+            Assert.That(run.FinalState.Position, Is.EqualTo(new GridPosition(7, 1)));
+        }
+
+        [Test]
+        public void InTheFinalRoomTheFirstInteractOpensTheDoorAndTheSecondActivatesTheTerminal()
+        {
+            var run = LevelRunner.Run(Level5Program, Level5);
+            var interacts = run.Steps.Where(step => step.Method == "Interact").ToList();
+
+            Assert.That(interacts.Select(step => step.Line), Is.EqualTo(new[] { 20, 22 }));
+            Assert.That(interacts.All(step => step.Succeeded), Is.True);
         }
 
         [Test]

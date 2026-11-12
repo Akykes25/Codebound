@@ -83,10 +83,13 @@ namespace Codebound.Tests.EditMode
             }));
         }
 
+        private const string FinalRoomTail =
+            "for (int i = 0; i < 3; i++)\n{\n    MoveRight();\n}\nChargeCore(pulses);\nInteract();\nMoveRight();\nInteract();";
+
         [Test]
         public void Level5WithoutIfElseAsksForTheDecision()
         {
-            const string program = "CollectKey();\nfor (int i = 0; i < 2; i++)\n{\n    OpenGate();\n    MoveRight();\n}";
+            const string program = "int pulses = 4;\nCollectKey();\nfor (int i = 0; i < 2; i++)\n{\n    OpenGate();\n    MoveRight();\n}\n" + FinalRoomTail;
 
             var verdict = Evaluate(program, Level5, Level5Goal);
 
@@ -95,14 +98,46 @@ namespace Codebound.Tests.EditMode
         }
 
         [Test]
-        public void Level5RequiresTheRobotToReachTheLastGate()
+        public void Level5WithALiteralChargeAsksForTheVariable()
         {
-            const string program = "for (int i = 0; i < 2; i++)\n{\n    if (HasKey())\n    {\n        OpenGate();\n    }\n    else\n    {\n        CollectKey();\n        OpenGate();\n    }\n    if (i < 1)\n    {\n        MoveRight();\n    }\n}";
+            var program = Level5Program.Replace("int pulses = 4;", string.Empty).Replace("ChargeCore(pulses);", "ChargeCore(4);");
+
+            var verdict = Evaluate(program, Level5, Level5Goal);
+
+            Assert.That(verdict.PendingObjectives, Is.Empty);
+            Assert.That(verdict.MissingConcepts, Is.EqualTo(new[]
+            {
+                "Llegaste, pero este nivel te pide guardar el valor en una variable int y pasarla al método.",
+            }));
+        }
+
+        [Test]
+        public void Level5WithTheChargeOfLevel4LeavesTheDoorAndTheTerminalPending()
+        {
+            var run = LevelRunner.Run(Level5Program.Replace("int pulses = 4;", "int pulses = 3;"), Level5);
+            var verdict = LevelValidator.Evaluate(run, Level5, Level5Goal);
+
+            Assert.That(verdict.Completed, Is.False);
+            Assert.That(verdict.PendingObjectives, Is.EqualTo(new[]
+            {
+                "La terminal sigue apagada.",
+                "El núcleo tiene carga 3 y necesita 4.",
+                "La puerta de energía sigue cerrada.",
+            }));
+            Assert.That(verdict.MissingConcepts, Is.Empty);
+            Assert.That(run.FinalState.OpenGates, Is.EquivalentTo(Level5.Gates));
+            Assert.That(run.FinalState.ActiveModules, Is.EquivalentTo(Level5.Modules));
+        }
+
+        [Test]
+        public void Level5RequiresTheTerminalAtTheEndOfTheRoom()
+        {
+            var program = Level5Program.Substring(0, Level5Program.LastIndexOf("MoveRight();"));
 
             var verdict = Evaluate(program, Level5, Level5Goal);
 
             Assert.That(verdict.Completed, Is.False);
-            Assert.That(verdict.PendingObjectives, Is.EqualTo(new[] { "El robot tiene que terminar en (3,1)." }));
+            Assert.That(verdict.PendingObjectives, Is.EqualTo(new[] { "La terminal sigue apagada." }));
         }
 
         [Test]
@@ -114,6 +149,7 @@ namespace Codebound.Tests.EditMode
             {
                 "Este nivel te pide repetir acciones con un for.",
                 "Este nivel te pide decidir con un if y su else.",
+                "Este nivel te pide guardar el valor en una variable int y pasarla al método.",
             }));
         }
 
@@ -141,7 +177,8 @@ namespace Codebound.Tests.EditMode
             Assert.That(LevelRunner.Run(Level1Program, Level1).Concepts, Is.EqualTo(ProgramConcept.None));
             Assert.That(LevelRunner.Run(Level3Program, Level3).Concepts, Is.EqualTo(ProgramConcept.ForLoop));
             Assert.That(LevelRunner.Run(Level4Program, Level4).Concepts, Is.EqualTo(ProgramConcept.IntVariableArgument));
-            Assert.That(LevelRunner.Run(Level5Program, Level5).Concepts, Is.EqualTo(ProgramConcept.ForLoop | ProgramConcept.IfElse));
+            Assert.That(LevelRunner.Run(Level5Program, Level5).Concepts,
+                Is.EqualTo(ProgramConcept.ForLoop | ProgramConcept.IfElse | ProgramConcept.IntVariableArgument));
         }
 
         [Test]

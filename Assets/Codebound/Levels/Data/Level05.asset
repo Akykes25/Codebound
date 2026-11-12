@@ -14,36 +14,40 @@ MonoBehaviour:
   m_EditorClassIdentifier: Codebound.Levels::Codebound.Levels.LevelDefinition
   number: 5
   title: "El guardi\xE1n del n\xFAcleo"
-  objective: "Dos puertas bloquean la salida. Consegu\xED la llave, abr\xED las dos
-    puertas y lleg\xE1 a la segunda."
-  concept: if/else, bool y estado
-  starterCode: 
+  objective: "La sala final junta todo lo que aprendiste. Abr\xED las dos puertas
+    con la llave, encend\xE9 los tres m\xF3dulos, carg\xE1 el n\xFAcleo, abr\xED
+    la puerta de energ\xEDa y activ\xE1 la terminal."
+  concept: "Repaso final: for, int, if/else y estado"
+  starterCode:
   isBoss: 1
   timed: 1
-  size: {x: 5, y: 3}
+  size: {x: 9, y: 3}
   start: {x: 1, y: 1}
   walls: []
-  modules: []
+  modules:
+  - {x: 4, y: 1}
+  - {x: 5, y: 1}
+  - {x: 6, y: 1}
   gates:
   - {x: 2, y: 1}
   - {x: 3, y: 1}
-  hasTerminal: 0
-  terminal: {x: 0, y: 0}
-  hasCore: 0
-  core: {x: 0, y: 0}
-  hasPowerDoor: 0
-  powerDoor: {x: 0, y: 0}
-  requiredCharge: 0
+  hasTerminal: 1
+  terminal: {x: 8, y: 1}
+  hasCore: 1
+  core: {x: 6, y: 0}
+  hasPowerDoor: 1
+  powerDoor: {x: 7, y: 1}
+  requiredCharge: 4
   hasKey: 1
   key: {x: 1, y: 0}
-  requireTerminalActive: 0
-  requireAllModules: 0
-  requireCoreCharge: 0
-  requirePowerDoorOpen: 0
+  requireTerminalActive: 1
+  requireAllModules: 1
+  requireCoreCharge: 1
+  requirePowerDoorOpen: 1
   requireAllGatesOpen: 1
-  requireFinalPosition: 1
-  finalPosition: {x: 3, y: 1}
-  requiredConcepts: 3
+  requireFinalPosition: 0
+  finalPosition: {x: 0, y: 0}
+  requiredConcepts: 7
   availableActions:
   - MoveRight
   - MoveLeft
@@ -55,21 +59,27 @@ MonoBehaviour:
   - CollectKey
   - OpenGate
   hints:
-  - 'Las dos puertas se resuelven con los mismos pasos: un for de dos vueltas repite
-    ese trabajo, una vez por puerta.'
-  - "En cada vuelta pregunt\xE1 si el robot ya tiene la llave con HasKey(). Un if
-    con else te deja hacer una cosa u otra seg\xFAn la respuesta."
-  - "Si todav\xEDa no tiene la llave, primero tiene que recogerla con CollectKey().
-    En los dos casos, despu\xE9s de abrir la puerta el robot avanza."
-  solutionCode: "for (int i = 0; i < 2; i++)\n{\n    if (HasKey())\n    {\n       
-    OpenGate();\n    }\n    else\n    {\n        CollectKey();\n        OpenGate();\n   
-    }\n    MoveRight();\n}"
-  solutionExplanation: "HasKey() comprueba si el robot tiene la llave: devuelve true
-    si la tiene y false si no.\n\nEn la primera vuelta todav\xEDa no la tiene, as\xED
-    que se ejecuta la rama else: CollectKey(); recoge la llave y OpenGate(); abre
-    la primera puerta. Despu\xE9s MoveRight(); lo lleva hasta donde estaba esa puerta.\n\nEn
-    la segunda vuelta el robot conserva la llave, HasKey() devuelve true y se ejecuta
-    la rama if: abre la segunda puerta directamente.\n\nPor eso lo que pas\xF3 en
-    la primera puerta cambia lo que pasa en la segunda: el mismo c\xF3digo toma un
-    camino distinto seg\xFAn el estado del robot."
-  advice: "Pens\xE1 qu\xE9 pasa en cada vuelta del for: a veces el robot ya tiene la llave y a veces no. Revis\xE1 que las dos ramas del if/else terminen con la puerta abierta y que el robot avance despu\xE9s, para llegar a la puerta siguiente."
+  - "Divid\xED la sala en tramos: primero las dos puertas con llave, despu\xE9s
+    el pasillo de m\xF3dulos y al final el n\xFAcleo, la puerta de energ\xEDa y
+    la terminal. Cada tramo se parece a un nivel que ya resolviste."
+  - "Las puertas y los m\xF3dulos se resuelven repitiendo pasos: us\xE1 un for
+    para cada tramo. En el de las puertas pregunt\xE1 con HasKey() si el robot ya
+    tiene la llave; un if con su else decide si hace falta CollectKey() antes de
+    OpenGate()."
+  - "Guard\xE1 la carga del n\xFAcleo en una variable int y pasala a ChargeCore().
+    Si no sab\xE9s qu\xE9 carga pide la puerta, prob\xE1 Interact() a su lado y
+    le\xE9 el mensaje. Despu\xE9s de abrirla todav\xEDa falta avanzar y activar
+    la terminal."
+  solutionCode: "int pulses = 4;\nfor (int i = 0; i < 2; i++)\n{\n    if (HasKey())\n    {\n        OpenGate();\n    }\n    else\n    {\n        CollectKey();\n        OpenGate();\n    }\n    MoveRight();\n}\nfor (int i = 0; i < 3; i++)\n{\n    MoveRight();\n}\nChargeCore(pulses);\nInteract();\nMoveRight();\nInteract();"
+  solutionExplanation: "La variable pulses guarda la carga del n\xFAcleo al principio,
+    para usarla cuando el robot llegue hasta \xE9l.\n\nEl primer for recorre las
+    dos puertas. En la primera vuelta HasKey() devuelve false, as\xED que se ejecuta
+    la rama else: CollectKey(); junta la llave y OpenGate(); abre la puerta. En
+    la segunda vuelta el robot conserva la llave, HasKey() devuelve true y la rama
+    if abre la otra puerta directamente.\n\nEl segundo for repite MoveRight(); tres
+    veces y enciende los m\xF3dulos a medida que el robot pasa por encima.\n\nAl
+    lado del n\xFAcleo, ChargeCore(pulses); le pasa el valor de la variable. El primer
+    Interact(); abre la puerta de energ\xEDa porque la carga es la que pide; el robot
+    avanza y el segundo Interact(); activa la terminal.\n\nEs la sala del jefe: cada
+    tramo usa un concepto de un nivel anterior y juntos forman un solo programa."
+  advice: "Revis\xE1 la sala tramo por tramo en el registro: \xBFse abrieron las dos puertas?, \xBFse encendieron los tres m\xF3dulos?, \xBFel n\xFAcleo qued\xF3 con la carga que pide la puerta? Acordate de que Interact() abre la puerta de energ\xEDa y, ya del otro lado, activa la terminal."
