@@ -76,7 +76,14 @@ namespace Codebound.Tests.EditMode
             Assert.That(LoadLevel(2).SolutionExplanation, Does.Contain("válido"));
             Assert.That(LoadLevel(3).SolutionExplanation, Does.Contain("contador").And.Contain("condición").And.Contain("i++"));
             Assert.That(LoadLevel(4).SolutionExplanation, Does.Contain("pulses").And.Contain("ChargeCore"));
-            Assert.That(LoadLevel(5).SolutionExplanation, Does.Contain("HasKey").And.Contain("else"));
+            Assert.That(LoadLevel(5).SolutionExplanation, Does.Contain("HasKey").And.Contain("else").And.Contain("pulses").And.Contain("for"));
+        }
+
+        [Test]
+        public void TheHintsOfTheFinalLevelDoNotGiveAwayTheCharge()
+        {
+            Assert.That(LoadLevel(5).Hints, Has.None.Contains("4"));
+            Assert.That(LoadLevel(5).Advice, Does.Not.Contain("4"));
         }
 
         [Test]
