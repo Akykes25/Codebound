@@ -1,0 +1,46 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3266b2b42adb2bf5e78b46be4aa09940, type: 3}
+  m_Name: ConceptGuide
+  m_EditorClassIdentifier: Codebound.Levels::Codebound.Levels.ConceptGuide
+  concepts:
+  - title: "Llamar a un m\xE9todo"
+    introducedIn: 1
+    explanation: "Cada instrucci\xF3n le da una orden al robot. Se escribe el nombre
+      del m\xE9todo, los par\xE9ntesis y un punto y coma al final. El robot ejecuta
+      las instrucciones una por una, de arriba hacia abajo."
+    example: "MoveRight();\nInteract();"
+  - title: "Orden y depuraci\xF3n"
+    introducedIn: 2
+    explanation: "El orden de las instrucciones cambia lo que hace el robot. Cuando
+      algo sale mal, ejecut\xE1 el programa, busc\xE1 en la consola la l\xEDnea
+      que fall\xF3 y correg\xED solo esa. Lo que va despu\xE9s de // es un comentario:
+      el robot no lo ejecuta."
+    example: "MoveRight();\nMoveRight(); // choca con el obst\xE1culo\nMoveUp();"
+  - title: Ciclo for
+    introducedIn: 3
+    explanation: "Repite un bloque de c\xF3digo. int i = 0 crea el contador, i < 3
+      es la condici\xF3n para dar otra vuelta e i++ le suma uno al terminar cada vuelta.
+      Este for repite el bloque tres veces."
+    example: "for (int i = 0; i < 3; i++)\n{\n    MoveDown();\n}"
+  - title: "Variables int y par\xE1metros"
+    introducedIn: 4
+    explanation: "Una variable int guarda un n\xFAmero entero con un nombre. Despu\xE9s
+      pod\xE9s pasarla a un m\xE9todo que pide un n\xFAmero, como ChargeCore, y el
+      m\xE9todo recibe el valor que guarda la variable."
+    example: "int energy = 2;\nChargeCore(energy);"
+  - title: Decisiones con bool, if y else
+    introducedIn: 5
+    explanation: "Un m\xE9todo bool responde true o false, como HasKey(). El if ejecuta
+      su bloque cuando la condici\xF3n es true y el else cuando es false. As\xED
+      el mismo c\xF3digo hace cosas distintas seg\xFAn el estado del robot."
+    example: "if (HasKey())\n{\n    OpenGate();\n}\nelse\n{\n    CollectKey();\n}"
